@@ -1,42 +1,100 @@
-body {
-  background: #f0c27b; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #f0c27b, #4b1248); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #f0c27b, #4b1248); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+var formulario = document.querySelector(".formulario")// cambie # por . porque no es un id, es un clase y puse el nombre correcto
+
+formulario.onsubmit = function (e) {
+
+  e.preventDefault();//agregue el Default
+
+  var name = formulario.elements[0]//Cambie nombres para evitar errores
+  var age = formulario.elements[1]
+  var na = formulario.elements[2]
+
+  var nombre = name.value
+  var edad = age.value
+
+  var i = na.selectedIndex
+  var nacionalidad = na.options[i].value
+  console.log(nombre, edad)
+  console.log(nacionalidad)
+
+  if (nombre.length === 0) {
+    name.classList.add("error");
+  }
+  if (edad < 18 || edad > 120) {
+    age.classList.add("error");
+  }
+
+
+  if (nombre.length > 0
+    && (edad > 18
+      && edad < 120)) {
+    agregarInvitado(nombre, edad, nacionalidad)
+  }
 }
 
-.formulario {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  width: 400px;
-}
+//Esto estaria repetido
+// var botonBorrar = document.createElement("button")
+// botonBorrar.textContent = "Eliminar invitado"
+// botonBorrar.id = "boton-borrar"
+// var corteLinea = document.createElement("br")
+// document.body.appendChild(corteLinea)
+// document.body.appendChild(botonBorrar);
 
-.formulario input, select {
-  border: none;
-  height: 20px;
-  border-radius: 5px;
-}
+function agregarInvitado(nombre, edad, nacionalidad) {
 
-.error {
-  background-color: red;
-}
+  if (nacionalidad === "ar") {
+    nacionalidad = "Argentina"
+  }
+  else if (nacionalidad === "mx") {
+    nacionalidad = "Mexicana"
+  }
+  else if (nacionalidad === "vnzl") {
+    nacionalidad = "Venezolana"
+  }
+  else if (nacionalidad === "per") {
+    nacionalidad = "Peruana"
+  }
 
-.elemento-lista {
-  color: #4b1248;
-  font-family: Verdana;
-  margin: 10px 0;
-  border: 5px solid #4b1248;
-  border-radius: 5px;
-  padding: 0 5px;
-  width: 400px;
-  margin: 20px
-}
+  var lista = document.getElementById("lista-de-invitados")
 
-.elemento-lista input {
-  border: none;
-  background: none;
-  color: #4b1248;
-  font-family: Verdana;
-  margin: 10px 0;
-  font-size: 16px;
+  var elementoLista = document.createElement("div")
+  elementoLista.classList.add("elemento-lista")//cambie added por add
+  lista.appendChild(elementoLista)
+
+  //esto ya estaria repetido
+  // var spanNombre = document.createElement("span")
+  // var inputNombre = document.createElement("input")
+  // var espacio = document.createElement("br")
+  // spanNombre.textContent = "Nombre: "
+  // inputNombre.value = nombre
+  // elementoLista.appendChild(spanNombre)
+  // elementoLista.appendChild(inputNombre)
+  // elementoLista.appendChild(espacio)
+
+  function crearElemento(descripcion, valor) {
+    var spanNombre = document.createElement("span")
+    var inputNombre = document.createElement("input")
+    var espacio = document.createElement("br")
+    spanNombre.textContent = descripcion + ": "
+    inputNombre.value = valor
+    elementoLista.appendChild(spanNombre)
+    elementoLista.appendChild(inputNombre)
+    elementoLista.appendChild(espacio)
+  }
+
+  crearElemento("Nombre", nombre)
+  crearElemento("Edad", edad)
+  crearElemento("Nacionalidad", nacionalidad)
+
+
+  var botonBorrar = document.createElement("button")
+  botonBorrar.textContent = "Eliminar invitado"
+  botonBorrar.id = "boton-borrar"
+  var corteLinea = document.createElement("br")
+  elementoLista.appendChild(corteLinea)
+  elementoLista.appendChild(botonBorrar);
+
+  botonBorrar.onclick = function () {
+    // this.parentNode.style.display = 'none';
+    botonBorrar.parentNode.remove()
+  }
 }

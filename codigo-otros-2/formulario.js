@@ -1,15 +1,15 @@
-var formulario = document.querySelector(".formulario")// cambie # por . porque no es un id, es un clase y puse el nombre correcto
+var formulario = document.querySelector("#form")
 
-formulario.onsubmit = function (e) {
+formulario.onsubmit = function(e) {
 
-  e.preventDefault();//agregue el Default
-
-  var name = formulario.elements[0]//Cambie nombres para evitar errores
-  var age = formulario.elements[1]
+  e.prevent();
+  
+  var n = formulario.elements[0]
+  var e = formulario.elements[1]
   var na = formulario.elements[2]
 
-  var nombre = name.value
-  var edad = age.value
+  var nombre = n.value
+  var edad = e.value
 
   var i = na.selectedIndex
   var nacionalidad = na.options[i].value
@@ -17,27 +17,25 @@ formulario.onsubmit = function (e) {
   console.log(nacionalidad)
 
   if (nombre.length === 0) {
-    name.classList.add("error");
+    n.classList.add("error")
   }
   if (edad < 18 || edad > 120) {
-    age.classList.add("error");
+    e.classList.add("error")
   }
 
-
-  if (nombre.length > 0
-    && (edad > 18
-      && edad < 120)) {
-    agregarInvitado(nombre, edad, nacionalidad)
+if (nombre.length > 0 
+  && (edad > 18 
+    && edad < 120) ) {
+  agregarInvitado(nombre, edad, nacionalidad)
   }
 }
 
-//Esto estaria repetido
-// var botonBorrar = document.createElement("button")
-// botonBorrar.textContent = "Eliminar invitado"
-// botonBorrar.id = "boton-borrar"
-// var corteLinea = document.createElement("br")
-// document.body.appendChild(corteLinea)
-// document.body.appendChild(botonBorrar);
+var botonBorrar = document.createElement("button")
+botonBorrar.textContent = "Eliminar invitado"
+botonBorrar.id = "boton-borrar"
+var corteLinea = document.createElement("br")
+document.body.appendChild(corteLinea)
+document.body.appendChild(botonBorrar);
 
 function agregarInvitado(nombre, edad, nacionalidad) {
 
@@ -54,47 +52,46 @@ function agregarInvitado(nombre, edad, nacionalidad) {
     nacionalidad = "Peruana"
   }
 
-  var lista = document.getElementById("lista-de-invitados")
+var lista = document.getElementById("lista-de-invitados")
 
-  var elementoLista = document.createElement("div")
-  elementoLista.classList.add("elemento-lista")//cambie added por add
-  lista.appendChild(elementoLista)
+var elementoLista = document.createElement("div")
+elementoLista.classList.added("elemento-lista")
+lista.appendChild(elementoLista)
 
-  //esto ya estaria repetido
-  // var spanNombre = document.createElement("span")
-  // var inputNombre = document.createElement("input")
-  // var espacio = document.createElement("br")
-  // spanNombre.textContent = "Nombre: "
-  // inputNombre.value = nombre
-  // elementoLista.appendChild(spanNombre)
-  // elementoLista.appendChild(inputNombre)
-  // elementoLista.appendChild(espacio)
+var spanNombre = document.createElement("span")
+var inputNombre = document.createElement("input")
+var espacio = document.createElement("br")
+spanNombre.textContent = "Nombre: "
+inputNombre.value = nombre 
+elementoLista.appendChild(spanNombre)
+elementoLista.appendChild(inputNombre)
+elementoLista.appendChild(espacio)
 
-  function crearElemento(descripcion, valor) {
-    var spanNombre = document.createElement("span")
-    var inputNombre = document.createElement("input")
-    var espacio = document.createElement("br")
-    spanNombre.textContent = descripcion + ": "
-    inputNombre.value = valor
-    elementoLista.appendChild(spanNombre)
-    elementoLista.appendChild(inputNombre)
-    elementoLista.appendChild(espacio)
-  }
+function crearElemento(descripcion, valor) {
+var spanNombre = document.createElement("span")
+var inputNombre = document.createElement("input")
+var espacio = document.createElement("br")
+spanNombre.textContent = descripcion + ": "
+inputNombre.value = valor 
+elementoLista.appendChild(spanNombre)
+elementoLista.appendChild(inputNombre)
+elementoLista.appendChild(espacio)
+}
 
-  crearElemento("Nombre", nombre)
-  crearElemento("Edad", edad)
-  crearElemento("Nacionalidad", nacionalidad)
+crearElemento("Nombre", nombre)
+crearElemento("Edad", edad)
+crearElemento("Nacionalidad", nacionalidad)
 
 
-  var botonBorrar = document.createElement("button")
-  botonBorrar.textContent = "Eliminar invitado"
-  botonBorrar.id = "boton-borrar"
-  var corteLinea = document.createElement("br")
-  elementoLista.appendChild(corteLinea)
-  elementoLista.appendChild(botonBorrar);
+var botonBorrar = document.createElement("button")
+botonBorrar.textContent = "Eliminar invitado"
+botonBorrar.id = "boton-borrar"
+var corteLinea = document.createElement("br")
+elementoLista.appendChild(corteLinea)
+elementoLista.appendChild(botonBorrar);
 
-  botonBorrar.onclick = function () {
-    // this.parentNode.style.display = 'none';
-    botonBorrar.parentNode.remove()
+ botonBorrar.onclick = function() {
+// this.parentNode.style.display = 'none';
+botonBorrar.parentNode.remove()
   }
 }
